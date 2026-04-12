@@ -223,7 +223,11 @@ class ClientScheduleTest < Test
       assert_equal [handle3.id], env.client.list_schedules("`#{ATTR_KEY_INTEGER.name}` = 1234").map(&:id)
     end
   ensure
-    delete_schedules(*expected_ids) if defined?(expected_ids)
+    if expected_ids
+      delete_schedules(*expected_ids)
+    elsif handle
+      delete_schedules(handle.id)
+    end
   end
 
   def test_calendar_spec_defaults

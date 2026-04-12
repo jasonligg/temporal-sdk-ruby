@@ -103,7 +103,7 @@ class Test < Minitest::Test
     while current
       puts "Exception: #{current.class} - #{current.message}"
       puts 'Backtrace:'
-      puts current.backtrace.join("\n")
+      puts current.backtrace&.join("\n") || '(no backtrace)'
       puts '-' * 50
 
       current = current.cause
